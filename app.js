@@ -9,6 +9,11 @@ require('./config/mongoose.js')
 
 const app = express()
 const post = process.env.PORT || 3000
+if (process.env.PORT) {
+  require('./models/seeds/categorySeeder')
+  require('./models/seeds/recordSeeder')
+}
+// console.log('test-db')
 
 app.engine('handlebars', exphbs({ defaultLayout: "main" }))
 app.set('view engine', 'handlebars')
