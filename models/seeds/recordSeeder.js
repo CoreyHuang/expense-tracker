@@ -1,11 +1,5 @@
-const mongoose = require('mongoose')
-mongoose.connect('mongodb://localhost/expense-tracker', { useNewUrlParser: true, useUnifiedTopology: true })
 const recordSchema = require('../record.js')
-// const categorySchema = require('../category.js')
-const db = mongoose.connection
-db.on('error', () => {
-  console.log('mongodb error!!!')
-})
+const db = require('../../config/mongoose.js')
 
 db.once('open', () => {
   console.log('mongodb connected~')
@@ -39,18 +33,11 @@ db.once('open', () => {
       date: '2019-04-01',
       amount: '25000',
     })
-    .then(() => { console.log("done") })
+    .then(() => { 
+      console.log("done") 
+      db.close()
+    })
     .catch((error) => { console.log(error) })
-  // console.log("recordSchema.create", recordSchema.create)
 })
 
 module.exports = db
-
-  // const category = ['家居物業', '交通出行', '休閒娛樂', '餐飲食品', '其他']
-  // category.forEach(data => {
-  //   categorySchema.create({
-  //     category: data
-  //   })
-  //     .then(() => { console.log("done") })
-  //     .catch((error) => { console.log(error) })
-  // })
