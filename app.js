@@ -24,11 +24,9 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.get('/new', (req, res) => {
   categorySchema.find().lean()
     .then(category => {
-      // console.log('recordRefactor', recordRefactor)
       res.render('new', { category })
     })
     .catch(error => { console.log(error) })
-  // res.render('new')
 })
 
 app.post('/', (req, res) => {
@@ -38,17 +36,31 @@ app.post('/', (req, res) => {
     .catch(error => { console.log(error) })
 })
 
+app.get('/filter', getCategory, getRecord, (recordRefactor, req, res, next) => {
+  // console.log("req.query", req.query) 
+  const query = req.query.filter
+  let recordFilter = recordRefactor
+  let totalAmount = 0
+  categorySchema.find().lean()
+    .then(category => {
+      // console.log('recordFilter', recordFilter)
+      recordFilter = recordFilter.filter(data => data.category.includes(query))
+      recordFilter.forEach(data => totalAmount += Number(data.amount))
+      res.render('index', { recordRefactor: recordFilter, category, totalAmount, query })
+    })
+    .catch(error => { console.log(error) })
+})
 
 
 app.get('/', getCategory, getRecord, (recordRefactor, req, res, next) => {
   categorySchema.find().lean()
     .then(category => {
       console.log('recordRefactor', recordRefactor)
-      res.render('index', { recordRefactor, category })
+      let totalAmount = 0
+      recordRefactor.forEach(data => totalAmount += Number(data.amount))
+      res.render('index', { recordRefactor, category, totalAmount })
     })
     .catch(error => { console.log(error) })
-
-
 })
 
 function getCategory(req, res, next) {
@@ -105,13 +117,18 @@ app.put('/:id', (req, res) => {
     .then(() => { res.redirect('/') })
     .catch(error => { console.log(error) })
 })
+
+app.delete('/:id', (req, res) => {
+  console.log('delete', req.params)
+  recordSchema.findById(req.params.id)
+    .then(data => data.remove())
+    .then(() => res.redirect('/'))
+    .catch(error => { console.log(error) })
+})
+
+
 app.listen(post, () => {
   console.log('Server is enable...')
 })
 
 
-  // < i class="fas fa-home" ></i > 家居物業
-  // < i class="fas fa-shuttle-van" ></i > 交通出行
-  // < i class="fas fa-grin-beam" ></i > 休閒娛樂
-  // < i class="fas fa-utensils" ></i > 餐飲食品
-  // < i class="fas fa-pen" ></i > 其他

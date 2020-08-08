@@ -1,21 +1,22 @@
 <div class="container h-100">
   <div class="row h-100 justify-content-center align-items-center">
     <div class="row w-50 justify-content-center align-items-center">
-      <form class="col-12 row justify-content-center mt-5">
-        <select name="YourLocation" style="width: 30rem;" class="p-2">
-          <option value="Taipei">類別</option>
+      <form class="col-12 row justify-content-center mt-5" action="/filter">
+        <select name="filter" style="width: 30rem;" class="p-2" onchange="this.form.submit()">
+          {{#if query}}<option value="">{{query}}</option>{{else}}<option value="">類別</option>{{/if}}
           {{#each category}}
-          <option value="Taipegi">{{this.category}}</option>
+          <option value="{{this.category}}">{{this.category}}</option>
           {{/each }}
           {{!-- <option value="Taoyuan">交通出行</option>
           <option value="Hsinchu">休閒娛樂</option>
           <option value="Miaoli">餐飲食品</option>
           <option value="Miaoli">其他</option> --}}
+
         </select>
       </form>
       <div class="col-12 row justify-content-center mt-4">
         <p style="font-size: 1.5rem;" class="mr-5">總金額 : </p>
-        <p style="font-size: 5rem; color:orange;" class="ml-5">25000</p>
+        <p style="font-size: 5rem; color:orange;" class="ml-5">{{totalAmount}}</p>
       </div>
 
 
@@ -34,13 +35,40 @@
         </div>
         <div style="position: absolute; left: 590px; top: 9px; width: 200px;" class="">
           <a href="/{{this._id}}" class="mr-3 btn btn-primary" style="font-size: 1.4rem;">修改</a>
-          <a href="" class="mr-3 btn btn-danger" style="font-size: 1.4rem;">刪除</a>
+          <button type="button" class="mr-3 btn btn-danger" data-toggle="modal" data-target="#a{{this._id}}"
+            style="font-size: 1.4rem;">
+            刪除
+          </button>
+          {{!-- <a href="" class="mr-3 btn btn-danger" style="font-size: 1.4rem;">刪除</a> --}}
+        </div>
+      </div>
+
+      <!-- Modal -->
+      <div class="modal fade" id="a{{this._id}}" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel">Warning!!!</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              確定要刪除 {{this.name}} !?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <form action="/{{this._id}}?_method=DELETE" method="POST">
+                <button type="submit" class="btn btn-primary">Delete</button>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
       {{/each }}
 
-      <a href="/new" class="btn btn-primary mt-3" style="width: 250px;">新增支出</a>
-      {{!-- <input type="date"> --}}
+      <a href="/new" class="btn btn-primary my-3" style="width: 250px;">新增支出</a>
 
     </div>
   </div>
