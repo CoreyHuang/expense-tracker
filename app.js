@@ -21,6 +21,25 @@ app.use(methodOverride('_method'))
 const bodyParser = require('body-parser')
 app.use(bodyParser.urlencoded({ extended: true }))
 ////////////////////////////////////////////////////////////////////////////////////////
+app.get('/new', (req, res) => {
+  categorySchema.find().lean()
+    .then(category => {
+      // console.log('recordRefactor', recordRefactor)
+      res.render('new', { category })
+    })
+    .catch(error => { console.log(error) })
+  // res.render('new')
+})
+
+app.post('/', (req, res) => {
+  console.log("post", req.body)
+  recordSchema.create(req.body)
+    .then(() => res.redirect('/'))
+    .catch(error => { console.log(error) })
+})
+
+
+
 app.get('/', getCategory, getRecord, (recordRefactor, req, res, next) => {
   categorySchema.find().lean()
     .then(category => {

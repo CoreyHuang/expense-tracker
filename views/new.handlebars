@@ -1,19 +1,20 @@
+
+
+
 <div class="container h-100">
   <div class="row h-100 justify-content-center align-items-center">
     <div class="row w-25 justify-content-center align-items-center">
-      <form class="col-12 row justify-content-center mt-5">
+      <form class="col-12 row justify-content-center mt-5" method="POST" action="/">
         <div class="col-12 text-center" style="font-size: 1.4rem;">請輸入你的支出</div>
-        <input type="text" class="col-12 mt-4 p-2">
-        <input type="date" class="col-12 mt-4 p-2">
-        <select name="YourLocation" style="width: 30rem;" class="col-12 mt-4 p-2">
-          <option value="Taipei">類別</option>
-          <option value="Taipegi">家居物業</option>
-          <option value="Taoyuan">交通出行</option>
-          <option value="Hsinchu">休閒娛樂</option>
-          <option value="Miaoli">餐飲食品</option>
-          <option value="Miaoli">其他</option>
+        <input type="text" class="col-12 mt-4 p-2" name="name" value="" required>
+        <input type="date" class="col-12 mt-4 p-2" name="date" value="" required>
+        <select name="category" style="width: 30rem;" class="col-12 mt-4 p-2" required>
+          <option value="">類別</option>
+          {{#each category}}
+          <option value="{{this.category}}">{{this.category}}</option>
+          {{/each }}
         </select>
-        <input type="text" class="col-12 mt-4 p-2">
+        <input type="number" min="1" max="1000000" class="col-12 mt-4 p-2" name="amount" value="" required>
         <button type="submit" class="btn btn-primary col-12 mt-4 p-2">新增支出</button>
         <div style="position: absolute; left: -150px; top: 0px; font-size: 1rem; color:red;">*必填欄位</div>
         <div style="position: absolute; left: -150px; top: 60px; font-size: 1.4rem">名稱* :</div>

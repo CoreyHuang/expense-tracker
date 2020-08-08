@@ -3,15 +3,15 @@
     <div class="row w-25 justify-content-center align-items-center">
       <form class="col-12 row justify-content-center mt-5" method="POST" action="/{{record._id}}?_method=PUT">
         <div class="col-12 text-center" style="font-size: 1.4rem;">請修改你的支出</div>
-        <input type="text" class="col-12 mt-4 p-2" name="name" value="{{record.name}}">
-        <input type="date" class="col-12 mt-4 p-2" name="date" value="{{record.date}}">
-        <select name="category" style="width: 30rem;" class="col-12 mt-4 p-2">
+        <input type="text" class="col-12 mt-4 p-2" name="name" value="{{record.name}}" required>
+        <input type="date" class="col-12 mt-4 p-2" name="date" value="{{record.date}}" required>
+        <select name="category" style="width: 30rem;" class="col-12 mt-4 p-2" required>
           <option value="{{record.category}}">{{record.category}}</option>
           {{#each categorys}}
           <option value="{{this.category}}">{{this.category}}</option>
           {{/each }}
         </select>
-        <input type="text" class="col-12 mt-4 p-2" name="amount" value="{{record.amount}}">
+        <input type="number" min="1" max="1000000" class="col-12 mt-4 p-2" name="amount" value="{{record.amount}}" required>
         <button type="submit" class="btn btn-primary col-12 mt-4 p-2">送出</button>
         <div style="position: absolute; left: -150px; top: 0px; font-size: 1rem; color:red;">*必填欄位</div>
         <div style="position: absolute; left: -150px; top: 60px; font-size: 1.4rem">名稱* :</div>
