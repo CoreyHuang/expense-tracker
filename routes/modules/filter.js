@@ -8,7 +8,7 @@ const recordSchema = require('../../models/record.js')
 router.get('/', (req, res, next) => {
   const query = req.query.filter
   const date = req.query.date
-  console.log('filter', req.query.filter)
+  console.log('query', req.query.filter)
   console.log('date', req.query.date)
   let totalAmount = 0
 
@@ -16,7 +16,10 @@ router.get('/', (req, res, next) => {
     .then(category => {
       recordSchema.find().lean()
         .then(expense => {
-
+          // console.log('expense', expense)
+          // console.log('expense',  expense[0].date.split('-'))
+          // const [a, b, c] = expense[0].date.split('-')
+          // console.log('a',a)
           let categoryFind = {}
           expense.forEach((record, index) => {
             categoryFind = category.find(category => category.category === record.category)
@@ -26,7 +29,15 @@ router.get('/', (req, res, next) => {
           return expense
         })
         .then((expense) => {
-          expense = expense.filter(data => data.category.includes(query))
+          // const [yearDB, monthDB] = expense.date.split('-')
+          const [year, month] = date.split('-')
+          date ? expense = expense.filter(data => data.category.includes(query)
+            && year === data.date.split('-')[0]
+            && month === data.date.split('-')[1])
+            : expense = expense.filter(data => data.category.includes(query))
+        
+          
+
           expense.forEach(data => totalAmount += Number(data.amount))
           res.render('index', { recordRefactor: expense, category, totalAmount, query, date })
         })

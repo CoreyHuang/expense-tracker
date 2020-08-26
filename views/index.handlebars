@@ -4,7 +4,7 @@
       <form class="col-12 row justify-content-center mt-5" action="/filter">
         <input type="month" name="date" class="col-5 mr-3" onchange="this.form.submit()" value="{{date}}">
         <select name="filter" style="width: 30rem;" class="p-2 col-5" onchange="this.form.submit()">
-          {{#if query}}<option value="">{{query}}</option>{{else}}<option value="">類別</option>{{/if}}
+          {{#if query}}<option value="{{query}}">{{query}}</option>{{else}}<option value="">類別</option>{{/if}}
           {{#each category}}
           <option value="{{this.category}}">{{this.category}}</option>
           {{/each }}
@@ -41,7 +41,7 @@
 
 
       <div class="list-group col-12 m-1 p-2 border border-secondary"
-        {{#if this.judgeStyle}}style="background-color:grey;" {{/if}}>
+        {{#if this.judgeStyle}}style="background-color:#ddd;" {{/if}}>
         <div class="row  align-items-center col-12">
           <div class="row  align-items-center col-6 ml-2">
             <i class="{{this.icon}}" style="font-size: 3rem; width: 5rem;"></i>
