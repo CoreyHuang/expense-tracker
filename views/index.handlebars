@@ -17,7 +17,7 @@
       </div>
 
       {{#each recordRefactor}}
-      <div class="list-group col-12 m-1 p-2 border border-secondary"
+      {{!-- <div class="list-group col-12 m-1 p-2 border border-secondary"
         {{#if this.judgeStyle}}style="background-color:grey;" {{/if}}>
         <div class="row justify-content-between align-items-center">
           <div class="row justify-content-between align-items-center ml-5">
@@ -27,7 +27,31 @@
               <p class="mb-0">{{this.date}}</p>
             </div>
           </div>
+          <p class="mr-5 mb-0">{{this.merchant}}</p>
           <p class="mr-5 mb-0">{{this.amount}}</p>
+        </div>
+        <div style="position: absolute; left: 590px; top: 9px; width: 200px;" class="">
+          <a href="/{{this._id}}" class="mr-3 btn btn-primary" style="font-size: 1.4rem;">修改</a>
+          <button type="button" class="mr-3 btn btn-danger" data-toggle="modal" data-target="#a{{this._id}}"
+            style="font-size: 1.4rem;">
+            刪除
+          </button>
+        </div>
+      </div> --}}
+
+
+      <div class="list-group col-12 m-1 p-2 border border-secondary"
+        {{#if this.judgeStyle}}style="background-color:grey;" {{/if}}>
+        <div class="row  align-items-center col-12">
+          <div class="row  align-items-center col-6 ml-2">
+            <i class="{{this.icon}}" style="font-size: 3rem; width: 5rem;"></i>
+            <div>
+              <p class="mb-0">{{this.name}}</p>
+              <p class="mb-0">{{this.date}}</p>
+            </div>
+          </div>
+          <p class=" mb-0 col-5">{{this.merchant}}</p>
+          <p class=" mb-0 col-1">{{this.amount}}</p>
         </div>
         <div style="position: absolute; left: 590px; top: 9px; width: 200px;" class="">
           <a href="/{{this._id}}" class="mr-3 btn btn-primary" style="font-size: 1.4rem;">修改</a>

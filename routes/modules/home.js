@@ -24,19 +24,21 @@ router.get('/:id', getCategory, (categorys, req, res, next) => {
 })
 
 router.post('/', (req, res) => {
+  // console.log('create', req.body)
   recordSchema.create(req.body)
     .then(() => res.redirect('/'))
     .catch(error => { console.log(error) })
 })
 
 router.put('/:id', (req, res) => {
-  const { name, date, category, amount } = req.body
+  const { name, date, category, amount, merchant } = req.body
   recordSchema.findById(req.params.id)
     .then(record => {
       record.name = name
       record.date = date
       record.category = category
       record.amount = amount
+      record.merchant = merchant
       record.save()
     })
     .then(() => { res.redirect('/') })

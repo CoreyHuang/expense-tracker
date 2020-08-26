@@ -18,6 +18,7 @@ const record = new Schema({
     type: String,
     required: true,
   },
-})
+  merchant: { type: String },
+}, { timestamps: { createdAt: 'created_at' } })
 
 module.exports = mongoose.model("record", record)
