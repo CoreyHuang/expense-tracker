@@ -8,22 +8,24 @@ module.exports = (app) => {
   app.use(passport.initialize());
   app.use(passport.session());
 
-  passport.use(new LocalStrategy({ usernameField: 'email' },
-    (email, password, done) => {
+  passport.use(new LocalStrategy({ usernameField: 'email', passReqToCallback: true },
+    (req, email, password, done) => {
       // console.log('email', email)
       // console.log('password', password)
-  
+
       userSchema.findOne({ email })
         .then(user => {
           // console.log('user', user)
           if (!user) {
-            console.log('user is not find')
+            // console.log('user is not find')
+            req.flash('loginMSG', "查無此帳號~")
             return done(null, false)
           }
           return bcryptjs.compare(password, user.password)
             .then(judge => {
               if (!judge) {
-                console.log('password error')
+                // console.log('password error')
+                req.flash('loginMSG', "密碼錯誤~")
                 return done(null, false)
               }
               console.log('account pass')

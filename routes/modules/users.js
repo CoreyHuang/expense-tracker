@@ -5,21 +5,21 @@ const userSchema = require('../../models/user')
 const passport = require('passport')
 
 router.get('/login', (req, res) => {
-  res.render('login')
+  const email = req.flash('email')
+  res.render('login', { email })
 })
 
-router.post('/login', test, passport.authenticate('local', { failureRedirect: '/users/login' }),
+router.post('/login', judgeAccount, passport.authenticate('local', { failureRedirect: '/users/login' }),
   function (req, res) {
-    console.log('req.user -3', req.user)
-    console.log('req.isAuthenticated - 3', req.isAuthenticated())
+    // console.log('req.user -3', req.user)
+    // console.log('req.isAuthenticated - 3', req.isAuthenticated())
     res.redirect('/');
   });
 
-function test(req, res, next) {
-  // console.log('req.isAuthenticated', req.isAuthenticated())
-  // console.log('req.user', req.user)
-  // console.log('req.body', req.body)
-  console.log('判斷是否帳密為空')
+function judgeAccount(req, res, next) {
+  if (!req.body.email || !req.body.password)
+    req.flash('loginMSG', '請填寫帳號/密碼~')
+  req.flash('email', req.body.email)
   next()
 }
 
@@ -48,7 +48,7 @@ router.post('/register', (req, res) => {
 
   userSchema.findOne({ email })
     .then((user) => {
-      if(user) {
+      if (user) {
         const registerMSG = '帳號已註冊過~'
         return res.render('register', { name, email, registerMSG })
       }
@@ -70,8 +70,9 @@ router.post('/register', (req, res) => {
 })
 
 router.get('/logout', (req, res) => {
-  console.log('logout')
+  // console.log('logout')
   req.logout()
+  req.flash('loginMSG', '已登出~')
   res.redirect('/users/login')
 })
 
