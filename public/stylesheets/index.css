@@ -1,0 +1,68 @@
+
+
+.bordertest {
+  border:gray solid 2px !important;
+  padding: 0.5rem;
+   background: #ddd ;
+   border-radius: 5px;
+}
+
+.searchText {
+  color: white;
+  position: absolute;
+  left: -40px;
+  top: -22px;
+  font-size: 1.5rem;
+  z-index: 9999;
+  /* border: 1px red solid; */
+  background:  black ;
+  padding: 3px;
+  border-radius: 10%;
+}
+
+.closeBtn {
+  position: absolute;
+  left: 548px;
+  top: -20px;
+}
+
+.totalMoney {
+    border:gray solid 2px !important;
+    border-radius: 5px;
+     background: #ddd ;
+}
+
+.totalMoneyText {
+  /* font-size: 5rem; */
+   left: -40px;
+  top: 27px;
+  height: 80px;
+  border:gray solid 2px !important;
+  /* padding: 50px; */
+
+    border-radius: 50%;
+  /* color: #f39c12 ; */
+  position: absolute;
+  /* background: url(http://pic.51yuansu.com/pic2/cover/00/44/16/5813af476eaa1_610.jpg); */
+}
+
+.penIcon {
+  font-size: 1rem;
+  color:white;
+  /* border:blue solid 1px; */
+  padding: 3px 3px 3px 4px;
+  border-radius: 3px;
+  width: 23px;
+  margin-bottom: 2px;
+  background: rgb(76, 76, 172);
+}
+
+.minusIcon {
+  font-size: 1rem;
+  color:white;
+  /* border:red solid 1px; */
+  padding: 3px 1px 3px 5px;
+  border-radius: 3px;
+  width: 23px;
+  background: rgb(172, 76, 156);
+}

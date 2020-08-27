@@ -1,7 +1,9 @@
 <div class="container h-100">
   <div class="row h-100 justify-content-center align-items-center">
     <div class="row w-50 justify-content-center align-items-center">
-      <form class="col-12 row justify-content-center mt-5" action="/filter">
+      <form class="col-12 row justify-content-center mt-5 bordertest" action="/filter">
+        <p class="searchText">Search</p>
+        <a href="/" class="btn btn-danger closeBtn">X</a>
         <input type="month" name="date" class="col-5 mr-3" onchange="this.form.submit()" value="{{date}}">
         <select name="filter" style="width: 30rem;" class="p-2 col-5" onchange="this.form.submit()">
           {{#if query}}<option value="{{query}}">{{query}}</option>{{else}}<option value="">類別</option>{{/if}}
@@ -11,9 +13,11 @@
         </select>
       </form>
 
-      <div class="col-12 row justify-content-center mt-4">
-        <p style="font-size: 1.5rem;" class="mr-5">總金額 : </p>
-        <p style="font-size: 5rem; color:orange;" class="ml-5">{{totalAmount}}</p>
+      <div class="col-12 row justify-content-center mt-2 mb-2 totalMoney">
+        {{!-- <p class="totalMoneyText">$</p> --}}
+        <img src="http://pic.51yuansu.com/pic2/cover/00/44/16/5813af476eaa1_610.jpg" alt="money" class="totalMoneyText">
+        {{!-- <p style="font-size: 1.5rem;" class="mr-5">總金額 : </p> --}}
+        <p style="font-size: 5rem; color:orange;" class="ml-0">{{totalAmount}}</p>
       </div>
 
       {{#each recordRefactor}}
@@ -50,16 +54,20 @@
               <p class="mb-0">{{this.date}}</p>
             </div>
           </div>
-          <p class=" mb-0 col-5">{{this.merchant}}</p>
-          <p class=" mb-0 col-1">{{this.amount}}</p>
+          <p class=" mb-0 col-3">{{this.merchant}}</p>
+          <p class=" mb-0 ml-4 col-1">${{this.amount}}</p>
+          <div class="mb-0 col-1 ml-4" style="padding-left: 30px;">
+            <a href="/{{this._id}}"><i class="fas fa-pen penIcon"></i></a>
+            <a href="" data-toggle="modal" data-target="#a{{this._id}}"><i class="fa fa-minus minusIcon"></i></a>
+          </div>
         </div>
-        <div style="position: absolute; left: 590px; top: 9px; width: 200px;" class="">
+        {{!-- <div style="position: absolute; left: 590px; top: 9px; width: 200px;" class="">
           <a href="/{{this._id}}" class="mr-3 btn btn-primary" style="font-size: 1.4rem;">修改</a>
-          <button type="button" class="mr-3 btn btn-danger" data-toggle="modal" data-target="#a{{this._id}}"
+          <a type="button" class="mr-3 btn btn-danger" data-toggle="modal" data-target="#a{{this._id}}"
             style="font-size: 1.4rem;">
             刪除
-          </button>
-        </div>
+          </a>
+        </div> --}}
       </div>
 
       <!-- Modal -->
