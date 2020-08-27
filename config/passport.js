@@ -2,6 +2,7 @@ const passport = require('passport')
 const LocalStrategy = require('passport-local')
 const userSchema = require('../models/user')
 const bcryptjs = require('bcryptjs')
+const FacebookStrategy = require('passport-facebook').Strategy
 
 module.exports = (app) => {
 
@@ -10,21 +11,16 @@ module.exports = (app) => {
 
   passport.use(new LocalStrategy({ usernameField: 'email', passReqToCallback: true },
     (req, email, password, done) => {
-      // console.log('email', email)
-      // console.log('password', password)
 
       userSchema.findOne({ email })
         .then(user => {
-          // console.log('user', user)
           if (!user) {
-            // console.log('user is not find')
             req.flash('loginMSG', "查無此帳號~")
             return done(null, false)
           }
           return bcryptjs.compare(password, user.password)
             .then(judge => {
               if (!judge) {
-                // console.log('password error')
                 req.flash('loginMSG', "密碼錯誤~")
                 return done(null, false)
               }
@@ -35,6 +31,34 @@ module.exports = (app) => {
         .catch(err => done(err, false))
     }
   ));
+
+
+  passport.use(new FacebookStrategy({
+    clientID: "360299311630187",
+    clientSecret: "9185e96e45434f3731e0d06c6dd72966",
+    callbackURL: "http://localhost:3000/auth/facebook/callback",
+    profileFields: ['email', 'displayName']
+  }, (accessToken, refreshToken, profile, done) => {
+    const { name, email } = profile._json
+    userSchema.findOne({ email })
+      .then(user => {
+        if (user) return done(null, user)
+        const randomPassword = Math.random().toString(36).slice(-8)
+        bcryptjs
+          .genSalt(10)
+          .then(salt => bcryptjs.hash(randomPassword, salt))
+          .then(hash => userSchema.create({
+            name,
+            email,
+            password: hash
+          }))
+          .then(user => done(null, user))
+          .catch(err => done(err, false))
+      })
+      .catch(err => done(err, false))
+
+  }))
+
 
   passport.serializeUser(function (user, done) {
     console.log('serializeUser')
