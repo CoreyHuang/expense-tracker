@@ -8,6 +8,7 @@ const router = require('./routes/index.js')
 const session = require('express-session')
 const usePassport = require('./config/passport')
 const localStorage = require('./middleware/localStorage')
+const flash = require('connect-flash')
 
 require('./config/mongoose.js')
 
@@ -26,7 +27,7 @@ app.use(session({
   resave: false, 
   saveUninitialized: true
 }))
-
+app.use(flash())
 usePassport(app)
 app.use(localStorage)
 
