@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const { schema } = require('./category')
 const Schema = mongoose.Schema
 
 const record = new Schema({
@@ -17,6 +18,12 @@ const record = new Schema({
   amount: {
     type: String,
     required: true,
+  },
+  userId : {
+    type: Schema.Types.ObjectId,
+    ref: 'user',
+    required: true,
+    index: true,
   },
   merchant: { type: String },
 }, { timestamps: { createdAt: 'created_at' } })

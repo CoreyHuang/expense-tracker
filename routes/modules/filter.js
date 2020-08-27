@@ -16,10 +16,7 @@ router.get('/', (req, res, next) => {
     .then(category => {
       recordSchema.find().lean()
         .then(expense => {
-          // console.log('expense', expense)
-          // console.log('expense',  expense[0].date.split('-'))
-          // const [a, b, c] = expense[0].date.split('-')
-          // console.log('a',a)
+
           let categoryFind = {}
           expense.forEach((record, index) => {
             categoryFind = category.find(category => category.category === record.category)
@@ -35,9 +32,6 @@ router.get('/', (req, res, next) => {
             && year === data.date.split('-')[0]
             && month === data.date.split('-')[1])
             : expense = expense.filter(data => data.category.includes(query))
-        
-          
-
           expense.forEach(data => totalAmount += Number(data.amount))
           res.render('index', { recordRefactor: expense, category, totalAmount, query, date })
         })

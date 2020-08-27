@@ -2,11 +2,29 @@ const express = require('express')
 const router = express.Router()
 const bcryptjs = require('bcryptjs')
 const userSchema = require('../../models/user')
-
+const passport = require('passport')
 
 router.get('/login', (req, res) => {
   res.render('login')
 })
+
+router.post('/login',test , passport.authenticate('local', { failureRedirect: '/users/login' }),
+  function (req, res) {
+    console.log('req.user -3', req.user)
+    console.log('req.isAuthenticated - 3', req.isAuthenticated())
+    res.redirect('/');
+  });
+
+  function test (req, res ,next) {
+    // console.log('req.isAuthenticated', req.isAuthenticated())
+    // console.log('req.user', req.user)
+    // console.log('req.body', req.body)
+    console.log('判斷是否帳密為空' )
+    next()
+  }
+
+
+
 
 router.get('/register', (req, res) => {
   res.render('register')

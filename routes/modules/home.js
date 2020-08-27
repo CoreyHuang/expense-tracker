@@ -5,20 +5,42 @@ const categorySchema = require('../../models/category.js')
 const recordSchema = require('../../models/record.js')
 
 
-router.get('/', getCategory, getRecord, (recordRefactor, req, res, next) => {
+router.get('/', (req, res, next) => {
+  console.log('req.user- 2', req.user)
+  let totalAmount = 0
+
   categorySchema.find().lean()
     .then(category => {
-      let totalAmount = 0
-      recordRefactor.forEach(data => totalAmount += Number(data.amount))
-      res.render('index', { recordRefactor, category, totalAmount })
+      recordSchema.find().lean()
+        .then(expense => {
+          let categoryFind = {}
+          expense.forEach((record, index) => {
+            categoryFind = category.find(category => category.category === record.category)
+            expense[index].icon = categoryFind.icon
+            if ((index + 1) % 2 === 1) expense[index].judgeStyle = (index + 1) % 2
+          })
+          return expense
+        })
+        .then((expense) => {
+          expense.forEach(data => totalAmount += Number(data.amount))
+          res.render('index', { recordRefactor: expense, category, totalAmount})
+        })
+        .catch(error => { console.log(error) })
     })
     .catch(error => { console.log(error) })
 })
 
-router.get('/:id', getCategory, (categorys, req, res, next) => {
-  recordSchema.findById(req.params.id).lean()
-    .then(record => {
-      res.render('edit', { record, categorys })
+
+
+
+router.get('/:id', (req, res, next) => {
+  categorySchema.find().lean()
+    .then(categorys => {
+      recordSchema.findById(req.params.id).lean()
+        .then(record => {
+          res.render('edit', { record, categorys })
+        })
+        .catch(error => { console.log(error) })
     })
     .catch(error => { console.log(error) })
 })
@@ -56,27 +78,3 @@ router.delete('/:id', (req, res) => {
 module.exports = router
 
 
-// function ////////////////////////////////////////////////////////////
-function getCategory(req, res, next) {
-  categorySchema.find().lean()
-    .then(categorys => {
-      next(categorys)
-    })
-    .catch(error => { console.log(error) })
-}
-
-function getRecord(categorys, req, res, next) {
-  recordSchema.find().lean()
-    .then(records => {
-
-      const recordRefactor = records
-      let categoryFind = {}
-      recordRefactor.forEach((record, index) => {
-        categoryFind = categorys.find(category => category.category === record.category)
-        recordRefactor[index].icon = categoryFind.icon
-        if ((index + 1) % 2 === 1) recordRefactor[index].judgeStyle = (index + 1) % 2
-      })
-      next(recordRefactor)
-    })
-    .catch(error => { console.log(error) })
-}

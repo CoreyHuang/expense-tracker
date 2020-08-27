@@ -5,6 +5,9 @@ const categorySchema = require('./models/category.js')
 const recordSchema = require('./models/record.js')
 const bodyParser = require('body-parser')
 const router = require('./routes/index.js')
+const session = require('express-session')
+const usePassport = require('./config/passport')
+
 require('./config/mongoose.js')
 
 const app = express()
@@ -16,6 +19,15 @@ app.set('view engine', 'handlebars')
 app.use(express.static('public'))
 app.use(methodOverride('_method'))
 app.use(bodyParser.urlencoded({ extended: true }))
+
+app.use(session({
+  secret: 'test777',
+  resave: false, 
+  saveUninitialized: true
+}))
+
+usePassport(app)
+
 app.use(router)
 
 app.listen(post, () => {
