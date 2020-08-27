@@ -15,7 +15,12 @@
 
 <body>
   <nav class="navbar navbar-dark bg-secondary">
-    <a class="navbar-brand" href="/">家庭記事本</a>
+    <a class="navbar-brand" href="/">{{#if isAuthenticate}}{{user.name}}的{{/if}}家庭記事本</a>
+    {{#if isAuthenticate}}
+    <a href="/users/logout" class="btn btn-danger">Logout</a>
+    {{else}}
+    <a href="/users/logout" class="btn btn-primary">Login</a>
+    {{/if}}
   </nav>
 
   {{{body}}}

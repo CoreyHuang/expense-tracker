@@ -7,6 +7,7 @@ const bodyParser = require('body-parser')
 const router = require('./routes/index.js')
 const session = require('express-session')
 const usePassport = require('./config/passport')
+const localStorage = require('./middleware/localStorage')
 
 require('./config/mongoose.js')
 
@@ -27,6 +28,7 @@ app.use(session({
 }))
 
 usePassport(app)
+app.use(localStorage)
 
 app.use(router)
 

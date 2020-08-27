@@ -6,12 +6,13 @@ const recordSchema = require('../../models/record.js')
 
 
 router.get('/', (req, res, next) => {
-  console.log('req.user- 2', req.user)
+  // console.log('req.user- 2', req.user)
   let totalAmount = 0
+  const userId = req.user._id
 
   categorySchema.find().lean()
     .then(category => {
-      recordSchema.find().lean()
+      recordSchema.find({ userId }).lean()
         .then(expense => {
           let categoryFind = {}
           expense.forEach((record, index) => {
@@ -23,7 +24,7 @@ router.get('/', (req, res, next) => {
         })
         .then((expense) => {
           expense.forEach(data => totalAmount += Number(data.amount))
-          res.render('index', { recordRefactor: expense, category, totalAmount})
+          res.render('index', { recordRefactor: expense, category, totalAmount })
         })
         .catch(error => { console.log(error) })
     })
@@ -34,9 +35,12 @@ router.get('/', (req, res, next) => {
 
 
 router.get('/:id', (req, res, next) => {
+  const userId = req.user._id
+  const _id = req.params.id
+
   categorySchema.find().lean()
     .then(categorys => {
-      recordSchema.findById(req.params.id).lean()
+      recordSchema.findOne({ userId, _id }).lean()
         .then(record => {
           res.render('edit', { record, categorys })
         })
@@ -47,14 +51,20 @@ router.get('/:id', (req, res, next) => {
 
 router.post('/', (req, res) => {
   // console.log('create', req.body)
+  // console.log('req.user',req.user)
+  req.body.userId = req.user._id
+  // console.log('req.body', req.body)
   recordSchema.create(req.body)
     .then(() => res.redirect('/'))
     .catch(error => { console.log(error) })
 })
 
 router.put('/:id', (req, res) => {
+  const userId = req.user._id
+  const _id = req.params.id
+
   const { name, date, category, amount, merchant } = req.body
-  recordSchema.findById(req.params.id)
+  recordSchema.findOne({ userId, _id })
     .then(record => {
       record.name = name
       record.date = date
@@ -68,7 +78,10 @@ router.put('/:id', (req, res) => {
 })
 
 router.delete('/:id', (req, res) => {
-  recordSchema.findById(req.params.id)
+  const userId = req.user._id
+  const _id = req.params.id
+
+  recordSchema.findOne({ userId, _id })
     .then(data => data.remove())
     .then(() => res.redirect('/'))
     .catch(error => { console.log(error) })

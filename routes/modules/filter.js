@@ -11,10 +11,11 @@ router.get('/', (req, res, next) => {
   console.log('query', req.query.filter)
   console.log('date', req.query.date)
   let totalAmount = 0
+  const userId = req.user._id
 
   categorySchema.find().lean()
     .then(category => {
-      recordSchema.find().lean()
+      recordSchema.find({ userId }).lean()
         .then(expense => {
 
           let categoryFind = {}
@@ -26,7 +27,6 @@ router.get('/', (req, res, next) => {
           return expense
         })
         .then((expense) => {
-          // const [yearDB, monthDB] = expense.date.split('-')
           const [year, month] = date.split('-')
           date ? expense = expense.filter(data => data.category.includes(query)
             && year === data.date.split('-')[0]
