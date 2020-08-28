@@ -2,72 +2,41 @@
   <div class="row h-100 justify-content-center align-items-center">
     <div class="row w-50 justify-content-center align-items-center">
       <form class="col-12 row justify-content-center mt-5 bordertest" action="/filter">
-        <p class="searchText">Search</p>
-        <a href="/" class="btn btn-danger closeBtn">X</a>
-        <input type="month" name="date" class="col-5 mr-3" onchange="this.form.submit()" value="{{date}}">
-        <select name="filter" style="width: 30rem;" class="p-2 col-5" onchange="this.form.submit()">
+        <p class="searchText mb-0">Search</p>
+        <input type="month" name="date" class="col-5 dateInput" onchange="this.form.submit()" value="{{date}}">
+        <select name="filter" style="" class="p-2 col-5" onchange="this.form.submit()">
           {{#if query}}<option value="{{query}}">{{query}}</option>{{else}}<option value="">類別</option>{{/if}}
           {{#each category}}
           <option value="{{this.category}}">{{this.category}}</option>
           {{/each }}
         </select>
+        <a href="/" class="btn btn-danger closeBtn col-auto">X</a>
       </form>
 
       <div class="col-12 row justify-content-center mt-2 mb-2 totalMoney">
-        {{!-- <p class="totalMoneyText">$</p> --}}
         <img src="http://pic.51yuansu.com/pic2/cover/00/44/16/5813af476eaa1_610.jpg" alt="money" class="totalMoneyText">
-        {{!-- <p style="font-size: 1.5rem;" class="mr-5">總金額 : </p> --}}
-        <p style="font-size: 5rem; color:orange;" class="ml-0">{{totalAmount}}</p>
+        <p style="font-size: 7vw; color:orange;" class="ml-0 mb-0">{{totalAmount}}</p>
       </div>
 
       {{#each recordRefactor}}
-      {{!-- <div class="list-group col-12 m-1 p-2 border border-secondary"
-        {{#if this.judgeStyle}}style="background-color:grey;" {{/if}}>
-        <div class="row justify-content-between align-items-center">
-          <div class="row justify-content-between align-items-center ml-5">
-            <i class="{{this.icon}}" style="font-size: 3rem; width: 5rem;"></i>
-            <div>
-              <p class="mb-0">{{this.name}}</p>
-              <p class="mb-0">{{this.date}}</p>
-            </div>
-          </div>
-          <p class="mr-5 mb-0">{{this.merchant}}</p>
-          <p class="mr-5 mb-0">{{this.amount}}</p>
-        </div>
-        <div style="position: absolute; left: 590px; top: 9px; width: 200px;" class="">
-          <a href="/{{this._id}}" class="mr-3 btn btn-primary" style="font-size: 1.4rem;">修改</a>
-          <button type="button" class="mr-3 btn btn-danger" data-toggle="modal" data-target="#a{{this._id}}"
-            style="font-size: 1.4rem;">
-            刪除
-          </button>
-        </div>
-      </div> --}}
-
 
       <div class="list-group col-12 m-1 p-2 border border-secondary"
         {{#if this.judgeStyle}}style="background-color:#ddd;" {{/if}}>
-        <div class="row  align-items-center col-12">
-          <div class="row  align-items-center col-6 ml-2">
-            <i class="{{this.icon}}" style="font-size: 3rem; width: 5rem;"></i>
-            <div>
-              <p class="mb-0">{{this.name}}</p>
-              <p class="mb-0">{{this.date}}</p>
+        <div class="row  align-items-center col-12 m-0 px-0">
+          <div class="row  align-items-center col-6">
+            <i class="{{this.icon}}  col-2" style="font-size: 3vw;"></i>
+            <div style="font-size: 1vw; padding-left: 2vw;" class="offset-1 col-9">
+              <p class="mb-0" style="">{{this.name}}</p>
+              <p class="mb-0" style="">{{this.date}}</p>
             </div>
           </div>
-          <p class=" mb-0 col-3">{{this.merchant}}</p>
-          <p class=" mb-0 ml-4 col-1">${{this.amount}}</p>
-          <div class="mb-0 col-1 ml-4" style="padding-left: 30px;">
+          <p class=" mb-0  col-3">{{this.merchant}}</p>
+          <p class=" mb-0 col-1 offset-1">${{this.amount}}</p>
+          <div class="mb-0  col-1" style="padding-left: 3vw;">
             <a href="/{{this._id}}"><i class="fas fa-pen penIcon"></i></a>
             <a href="" data-toggle="modal" data-target="#a{{this._id}}"><i class="fa fa-minus minusIcon"></i></a>
           </div>
         </div>
-        {{!-- <div style="position: absolute; left: 590px; top: 9px; width: 200px;" class="">
-          <a href="/{{this._id}}" class="mr-3 btn btn-primary" style="font-size: 1.4rem;">修改</a>
-          <a type="button" class="mr-3 btn btn-danger" data-toggle="modal" data-target="#a{{this._id}}"
-            style="font-size: 1.4rem;">
-            刪除
-          </a>
-        </div> --}}
       </div>
 
       <!-- Modal -->
@@ -95,7 +64,6 @@
       </div>
       {{/each }}
 
-      {{!-- <a href="/new" class="btn btn-primary my-3" style="width: 250px;">新增支出</a> --}}
     </div>
   </div>
 </div>
