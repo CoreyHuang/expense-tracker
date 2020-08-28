@@ -54,6 +54,15 @@ router.get('/filter', (req, res, next) => {
     .catch(error => { console.log(error) })
 })
 
+router.get('/new', (req, res) => {
+  categorySchema.find().lean()
+    .then(category => {
+      res.render('new', { category })
+    })
+    .catch(error => { console.log(error) })
+})
+
+
 
 router.get('/:id', (req, res, next) => {
   const userId = req.user._id
