@@ -63,16 +63,8 @@ router.put('/:id', (req, res) => {
   const userId = req.user._id
   const _id = req.params.id
 
-  const { name, date, category, amount, merchant } = req.body
   recordSchema.findOne({ userId, _id })
-    .then(record => {
-      record.name = name
-      record.date = date
-      record.category = category
-      record.amount = amount
-      record.merchant = merchant
-      record.save()
-    })
+    .then(record => Object.assign(record, req.body).save())
     .then(() => { res.redirect('/') })
     .catch(error => { console.log(error) })
 })
