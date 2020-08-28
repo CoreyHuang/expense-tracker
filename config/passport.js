@@ -24,7 +24,6 @@ module.exports = (app) => {
                 req.flash('loginMSG', "密碼錯誤~")
                 return done(null, false)
               }
-              console.log('account pass')
               return done(null, user)
             })
         })
@@ -61,16 +60,12 @@ module.exports = (app) => {
 
 
   passport.serializeUser(function (user, done) {
-    console.log('serializeUser')
     done(null, user._id);
   });
 
   passport.deserializeUser(function (id, done) {
     userSchema.findById(id).lean()
-      .then(user => {
-        // console.log('deserializeUser', user)
-        done(null, user)
-      })
+      .then(user => done(null, user))
       .catch(err => done(err, false))
   });
 }

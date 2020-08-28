@@ -80,10 +80,7 @@ router.get('/:id', (req, res, next) => {
 })
 
 router.post('/', (req, res) => {
-  // console.log('create', req.body)
-  // console.log('req.user',req.user)
   req.body.userId = req.user._id
-  // console.log('req.body', req.body)
   recordSchema.create(req.body)
     .then(() => res.redirect('/'))
     .catch(error => { console.log(error) })
