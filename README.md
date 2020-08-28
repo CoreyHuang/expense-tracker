@@ -51,7 +51,7 @@ URL: http://localhost:3000/
 
 
 ### Prerequisites(環境建置與需求):
-#### `<安裝需求>` : 版本為記錄用，並非必須
+#### `<安裝需求>`
  1. git : v2.27.0.windows.1
  2. nvm : v1.1.7
  3. node : v10.15.0
