@@ -16,7 +16,7 @@ const flash = require('connect-flash')
 require('./config/mongoose.js')
 
 const app = express()
-const post = process.env.port
+const post = process.env.PORT
 
 app.engine('handlebars', exphbs({ defaultLayout: "main" }))
 app.set('view engine', 'handlebars')
