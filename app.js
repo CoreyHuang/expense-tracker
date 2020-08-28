@@ -1,3 +1,6 @@
+if (process.env.NODE_ENV !== 'production')
+  require('dotenv').config()
+
 const express = require('express')
 const exphbs = require('express-handlebars')
 const methodOverride = require('method-override')
@@ -13,7 +16,7 @@ const flash = require('connect-flash')
 require('./config/mongoose.js')
 
 const app = express()
-const post = process.env.PORT || 3000
+const post = process.env.port
 
 app.engine('handlebars', exphbs({ defaultLayout: "main" }))
 app.set('view engine', 'handlebars')
@@ -23,8 +26,8 @@ app.use(methodOverride('_method'))
 app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use(session({
-  secret: 'test777',
-  resave: false, 
+  secret: process.env.secret,
+  resave: false,
   saveUninitialized: true
 }))
 app.use(flash())
