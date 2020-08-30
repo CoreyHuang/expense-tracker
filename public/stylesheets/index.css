@@ -8,21 +8,22 @@
 }
 
 .searchText {
-  color: white;
-  position: absolute;
-  left: -7%;
-  top: 14%;
-  font-size: 1.5vw;
-  z-index: 9999;
-  background:  black ;
+  /* color: white; */
+  /* position: absolute; */
+  /* left: -7%;
+  top: 14%; */
+  font-size: 25px;
+  /* z-index: 9999; */
+  /* background:  black ; */
   padding:  0.2vw;
   border-radius: 10%;
 }
 
 .closeBtn {
   position: absolute;
-  left: 97%;
-  top: -20px;
+  left: 85%;
+  /* top: -20px; */
+  /* height: 90%; */
 }
 
 .dateInput {
@@ -36,12 +37,13 @@
 }
 
 .totalMoneyText {
-   left: -8%;
-  top: 23%;
-  height: 6vw;
+   /* left: -8%; */
+  /* top: 23%; */
+  height: 60px;
+  margin-right: 1rem;
   border:gray solid 2px !important;
-    border-radius: 50%;
-  position: absolute;
+  border-radius: 50%;
+  /* position: relative; */
 }
 
 .penIcon {
@@ -62,3 +64,13 @@
   width: 23px;
   background: rgb(172, 76, 156);
 }
+
+/* .container {
+  background-image: url(https://attach.setn.com/newsimages/2016/06/29/572914-XXL.jpg);
+  background-repeat:no-repeat;
+  background-size:cover;
+}
+
+html, body {
+   height: 90%;
+} */

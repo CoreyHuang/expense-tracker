@@ -1,69 +1,77 @@
-<div class="container h-100">
-  <div class="row h-100 justify-content-center align-items-center">
-    <div class="row w-50 justify-content-center align-items-center">
-      <form class="col-12 row justify-content-center mt-5 bordertest" action="/filter">
-        <p class="searchText mb-0">Search</p>
-        <input type="month" name="date" class="col-5 dateInput" onchange="this.form.submit()" value="{{date}}">
-        <select name="filter" style="" class="p-2 col-5" onchange="this.form.submit()">
-          {{#if query}}<option value="{{query}}">{{query}}</option>{{else}}<option value="">類別</option>{{/if}}
-          {{#each category}}
-          <option value="{{this.category}}">{{this.category}}</option>
-          {{/each }}
-        </select>
-        <a href="/" class="btn btn-danger closeBtn col-auto">X</a>
-      </form>
-
-      <div class="col-12 row justify-content-center mt-2 mb-2 totalMoney">
-        <img src="http://pic.51yuansu.com/pic2/cover/00/44/16/5813af476eaa1_610.jpg" alt="money" class="totalMoneyText">
-        <p style="font-size: 7vw; color:orange;" class="ml-0 mb-0">{{totalAmount}}</p>
+<div class="container" style="min-width:350px">
+  <div class="row justify-content-center align-items-center m-auto">
+    <div class="col-lg-8 col-12 row justify-content-center align-items-center mt-2 m-1 mb-2 p-3 totalMoney">
+      <p style="font-size: 45px;" class="col-auto mb-1">Total amount</p>
+      <div class="row align-items-center">
+        <img src="http://pic.51yuansu.com/pic2/cover/00/44/16/5813af476eaa1_610.jpg" alt="money"
+          class="totalMoneyText ">
+        <p style="font-size: 60px; color:orange;" class="ml-3  mb-1">{{totalAmount}}</p>
       </div>
-
-      {{#each recordRefactor}}
-
-      <div class="list-group col-12 m-1 p-2 border border-secondary"
-        {{#if this.judgeStyle}}style="background-color:#ddd;" {{/if}}>
-        <div class="row  align-items-center col-12 m-0 px-0">
-          <div class="row  align-items-center col-6">
-            <i class="{{this.icon}}  col-2" style="font-size: 3vw;"></i>
-            <div style="font-size: 1vw; padding-left: 2vw;" class="offset-1 col-9">
-              <p class="mb-0" style="">{{this.name}}</p>
-              <p class="mb-0" style="">{{this.date}}</p>
-            </div>
-          </div>
-          <p class=" mb-0  col-3">{{this.merchant}}</p>
-          <p class=" mb-0 col-1 offset-1">${{this.amount}}</p>
-          <div class="mb-0  col-1" style="padding-left: 3vw;">
-            <a href="/{{this._id}}"><i class="fas fa-pen penIcon"></i></a>
-            <a href="" data-toggle="modal" data-target="#a{{this._id}}"><i class="fa fa-minus minusIcon"></i></a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Modal -->
-      <div class="modal fade" id="a{{this._id}}" data-backdrop="static" data-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="staticBackdropLabel">Warning!!!</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              確定要刪除 {{this.name}} !?
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <form action="/{{this._id}}?_method=DELETE" method="POST">
-                <button type="submit" class="btn btn-primary">Delete</button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-      {{/each }}
-
     </div>
+
+    <form class="col-lg-3 col-12 row justify-content-center bordertest m-1 p-1" action="/filter">
+      <div class="col-md-12 row justify-content-center mb-1">
+        <p class="searchText mb-0 text-center">Search</p>
+        <a href="/" class="btn btn-danger closeBtn col-auto mt-1 ml-0">X</a>
+      </div>
+      <input type="month" name="date" class="dateInput col-md-12 m-1 mr-0 " onchange="this.form.submit()"
+        value="{{date}}">
+      <select name="filter" style="" class=" col-md-12 m-1" onchange="this.form.submit()">
+        {{#if query}}<option value="{{query}}">{{query}}</option>{{else}}<option value="">類別</option>{{/if}}
+        {{#each category}}
+        <option value="{{this.category}}">{{this.category}}</option>
+        {{/each }}
+      </select>
+
+    </form>
+
+
+    {{#each recordRefactor}}
+
+    <div class="list-group col-lg-11 col-12 m-1 p-2 border border-secondary"style="{{#if this.judgeStyle}}background-color:#ddd;{{/if}}min-width:350px"
+      >
+      <div class="row  align-items-center col-12 m-0 px-0" style="min-height: 73px;">
+        <div class="row  align-items-center col-10 ml-0" >
+          <i class="{{this.icon}}  col-1 pl-1" style="font-size: 35px;"></i>
+          <div style="font-size: 17px; padding-left: 10px;" class="ml-3 col-9">
+            <p class="mb-0" style="font-weight:bold ;">{{this.name}}</p>
+            <p class=" mb-0  ">{{this.merchant}}</p>
+            <p class="mb-0" style="">{{this.date}}</p>
+          </div>
+        </div>
+       
+        <p class=" mb-0 col-1" style="font-size: 25px;margin-left:-70px">${{this.amount}}</p>
+        <div class="mb-0  col-1" style="padding-left: 80px;padding-right:15px;">
+          <a href="/{{this._id}}"><i class="fas fa-pen penIcon"></i></a>
+          <a href="" data-toggle="modal" data-target="#a{{this._id}}"><i class="fa fa-minus minusIcon"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="a{{this._id}}" data-backdrop="static" data-keyboard="false" tabindex="-1"
+      aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Warning!!!</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            確定要刪除 {{this.name}} !?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <form action="/{{this._id}}?_method=DELETE" method="POST">
+              <button type="submit" class="btn btn-primary">Delete</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{/each }}
+
   </div>
 </div>
