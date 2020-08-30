@@ -1,6 +1,6 @@
 <div class="container" style="min-width:350px">
   <div class="row justify-content-center align-items-center m-auto">
-    <div class="col-lg-8 col-12 row justify-content-center align-items-center mt-2 m-1 mb-2 p-3 totalMoney">
+    <div class="col-lg-8 col-12 row justify-content-center align-items-center mt-2 m-1 mb-2 p-3 totalMoney" style="background-color: #D4DEFF;">
       <p style="font-size: 45px;" class="col-auto mb-1">Total amount</p>
       <div class="row align-items-center">
         <img src="http://pic.51yuansu.com/pic2/cover/00/44/16/5813af476eaa1_610.jpg" alt="money"
@@ -9,7 +9,7 @@
       </div>
     </div>
 
-    <form class="col-lg-3 col-12 row justify-content-center bordertest m-1 p-1" action="/filter">
+    <form class="col-lg-3 col-12 row justify-content-center bordertest m-1 p-1" action="/filter" style="background-color: #D4DEFF;">
       <div class="col-md-12 row justify-content-center mb-1">
         <p class="searchText mb-0 text-center">Search</p>
         <a href="/" class="btn btn-danger closeBtn col-auto mt-1 ml-0">X</a>
@@ -28,7 +28,7 @@
 
     {{#each recordRefactor}}
 
-    <div class="list-group col-lg-11 col-12 m-1 p-2 border border-secondary"style="{{#if this.judgeStyle}}background-color:#ddd;{{/if}}min-width:350px"
+    <div class="list-group col-lg-11 col-12 m-1 p-2 border border-secondary"style="{{#if this.judgeStyle}}background-color:#C7FFDB;{{else}}background-color:#B8DEFF;{{/if}}min-width:350px"
       >
       <div class="row  align-items-center col-12 m-0 px-0" style="min-height: 73px;">
         <div class="row  align-items-center col-10 ml-0" >
@@ -75,3 +75,4 @@
 
   </div>
 </div>
+

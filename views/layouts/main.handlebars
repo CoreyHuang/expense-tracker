@@ -14,8 +14,8 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-dark bg-secondary">
-    <a class="navbar-brand" href="/">{{#if isAuthenticate}}{{user.name}}的{{/if}}家庭記事本</a>
+  <nav class="navbar navbar-light bg-light" style="background: #BF92C7!important;">
+    <a class="navbar-brand" href="/" style="color:white!important;;">{{#if isAuthenticate}}{{user.name}}的{{/if}}家庭記事本</a>
     {{#if isAuthenticate}}
     <div>
       <a href="/new" class="btn btn-primary mr-2">新增支出</a>
@@ -27,6 +27,8 @@
   </nav>
 
   {{{body}}}
+
+  <img src="https://lh3.googleusercontent.com/proxy/-OngA4mUlThj_vmesfGMSoKqVOIr1_ngbMGVU84nfqpybFwEHc6IPhVDkX1jV2EhDK6XeXPFiXznC2JwavMaT3xEEL4s2tUG9gCkKoIF" alt="" class="bgImg">
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
