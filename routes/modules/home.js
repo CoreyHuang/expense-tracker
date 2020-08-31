@@ -8,33 +8,8 @@ const recordSchema = require('../../models/record.js')
 router.get('/', (req, res, next) => {
   let totalAmount = 0
   const userId = req.user._id
-
-  categorySchema.find().lean()
-    .then(category => {
-      recordSchema.find({ userId }).lean()
-        .then(expense => {
-          let categoryFind = {}
-          expense.forEach((record, index) => {
-            categoryFind = category.find(category => category.category === record.category)
-            expense[index].icon = categoryFind.icon
-            if ((index + 1) % 2 === 1) expense[index].judgeStyle = (index + 1) % 2
-          })
-          return expense
-        })
-        .then((expense) => {
-          expense.forEach(data => totalAmount += Number(data.amount))
-          res.render('index', { recordRefactor: expense, category, totalAmount })
-        })
-        .catch(error => { console.log(error) })
-    })
-    .catch(error => { console.log(error) })
-})
-
-router.get('/filter', (req, res, next) => {
-  const query = req.query.filter
-  const date = req.query.date
-  let totalAmount = 0
-  const userId = req.user._id
+  const query = req.query.filter || ""
+  const date = req.query.date || ""
 
   categorySchema.find().lean()
     .then(category => {
@@ -52,6 +27,7 @@ router.get('/filter', (req, res, next) => {
         .catch(error => { console.log(error) })
     })
     .catch(error => { console.log(error) })
+
 })
 
 router.get('/new', (req, res) => {
